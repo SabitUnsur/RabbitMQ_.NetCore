@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Publisher", "RabbitMq.Publisher\RabbitMq.Publisher.csproj", "{3BC997E2-B2F8-409A-876E-6A9CF8C32982}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Subscriber", "RabbitMq.Subscriber\RabbitMq.Subscriber.csproj", "{266A0B95-D980-44C3-A410-9EABB50E5B07}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BC997E2-B2F8-409A-876E-6A9CF8C32982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BC997E2-B2F8-409A-876E-6A9CF8C32982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BC997E2-B2F8-409A-876E-6A9CF8C32982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BC997E2-B2F8-409A-876E-6A9CF8C32982}.Release|Any CPU.Build.0 = Release|Any CPU
+		{266A0B95-D980-44C3-A410-9EABB50E5B07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{266A0B95-D980-44C3-A410-9EABB50E5B07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{266A0B95-D980-44C3-A410-9EABB50E5B07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{266A0B95-D980-44C3-A410-9EABB50E5B07}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B1DD7060-D574-434A-A101-C60156F94C2F}
+	EndGlobalSection
+EndGlobal
