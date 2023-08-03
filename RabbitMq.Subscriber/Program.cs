@@ -9,22 +9,40 @@ factory.Uri = new Uri("amqps://tegedsqq:ncxR4Qvi_wkErwDukEx0cFuvBEWJCiA_@moose.r
 
 using var connection = factory.CreateConnection(); 
 
-var channel = connection.CreateModel();  
+var channel = connection.CreateModel();
 
 //channel.QueueDeclare("hello-queue", true, false, false);
 //Publisherda bu kuyruğun olduğuna eminsen bu kodu silebilirsin,varsa da parametreler aynı olmalıdır.
 
+channel.BasicQos(0, 1, false);
+// burada herhangi bir mesaj boyutu olarak ilk parametreyi girdik.
+// 2.parametre burada kaç mesaj olacağı. 
+// global parametresinin false değeri kaç subsscriber varsa hepsine 2.parametredeki mesaj gönder demektir.
+// 2.parametrede 6 var diyelim , true ise 3 subscriber varsa 2-2-2 gönder yani totalde 6 mesaj gönder demektir. Eşit bölmeye çalışır.
+
+
 var consumer = new EventingBasicConsumer(channel);
 
-channel.BasicConsume("hello-queue", true , consumer);
+//channel.BasicConsume("hello-queue", true , consumer);
 
 //AutoAck: true denince RabbitMQ dan bir mesaj gönderildiğinde doğru da işlense yanlış da işlense kuyruktan silinir.
 // false denirse eğer doğru işlenirse kuyruktan sil, haberdar edeceğim anlamına gelir.
+
+
+channel.BasicConsume("hello-queue", false , consumer);
 
 consumer.Received += (object? sender, BasicDeliverEventArgs e) =>
 {
     var message = Encoding.UTF8.GetString(e.Body.ToArray());
     Console.WriteLine("Gelen Mesaj : " + message);
+
+    Thread.Sleep(1000);
+
+    channel.BasicAck(e.DeliveryTag, false); 
+    //Bu kod ile ilgili mesajı silebileceğini rabbitmqya haber ederiz.
+    //Rabbitmq hangi tag ile ulaştırmışsa bulur siler.
+    //multiple özelliği ise true ise memoryde işlenmiş ama rabbitmqye gitmemiş başka mesaj varsa onları da rabbitmqya bildirir.  
+
 };
 
 //RabbitMq, subscribera mesaj gönderdiğinde bu event fırlar
