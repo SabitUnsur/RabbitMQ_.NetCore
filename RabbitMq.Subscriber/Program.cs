@@ -47,7 +47,15 @@ var consumer = new EventingBasicConsumer(channel);
 
 //channel.BasicConsume(randomQueueName, false, consumer);Fanout exchange
 
-var queueName = "direct-queue-Critical"; // hangi kuyruğa bind olacağımızı belirttik
+//var queueName = "direct-queue-Critical"; // hangi kuyruğa bind olacağımızı belirttik // Direct Exchange
+
+var queueName = channel.QueueDeclare().QueueName;
+var routeKey = "*.Error.*"; //bu regex ifadeye uygun bir mesaj geldiğinde kuyruğa gelsin
+
+//channel.QueueBind(queueName, "logs-direct", routeKey); //direct exchange
+
+
+channel.QueueBind(queueName, "logs-topic", routeKey);
 channel.BasicConsume(queueName, false, consumer);
 
 Console.WriteLine("Loglar dinleniyor...");
@@ -57,7 +65,7 @@ consumer.Received += (object? sender, BasicDeliverEventArgs e) =>
     var message = Encoding.UTF8.GetString(e.Body.ToArray());
     Console.WriteLine("Gelen Mesaj : " + message);
 
-    File.AppendAllText("log-critical.txt",message+"\n");
+    //File.AppendAllText("log-critical.txt",message+"\n"); logları txte yazdık.
 
     Thread.Sleep(1000);
 

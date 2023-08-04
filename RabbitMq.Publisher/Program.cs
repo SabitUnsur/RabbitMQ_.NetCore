@@ -34,23 +34,30 @@ class Program
 
         //channel.ExchangeDeclare("logs-fanout", durable: true, type: ExchangeType.Fanout); //Fanout Exchange tanımı
 
-        channel.ExchangeDeclare("logs-direct", durable: true, type: ExchangeType.Direct); //Direct Exchange tanımı
+        //channel.ExchangeDeclare("logs-direct", durable: true, type: ExchangeType.Direct); //Direct Exchange tanımı
+
+        channel.ExchangeDeclare("logs-topic", durable: true, type: ExchangeType.Direct); //Direct Exchange tanımı
 
         //Direct Exchange
-        Enum.GetNames(typeof(LogNames)).ToList().ForEach(x =>
-        {
-            var routeKey = $"route-{x}";
-            var queueName = $"direct-queue-{x}";
-            channel.QueueDeclare(queueName, true, false, false);
-            channel.QueueBind(queueName, "logs-direct", routeKey);
-        });
+        /* Enum.GetNames(typeof(LogNames)).ToList().ForEach(x =>
+         {      var routeKey = $"route-{x}"; => Direct Exchange
+              var queueName = $"direct-queue-{x}"; 
+             channel.QueueDeclare(queueName, true, false, false); //Direct Exchange için yazıldı.
+             channel.QueueBind(queueName, "logs-direct", routeKey);
+         });*/
 
 
         Enumerable.Range(1, 50).ToList().ForEach(x =>
         {
-            LogNames log = (LogNames)new Random().Next(1,5);
+            //LogNames log = (LogNames)new Random().Next(1,5); => direct exchange  
 
-            string message = $"log {log}"; 
+            LogNames log1 = (LogNames)new Random().Next(1, 5);
+            LogNames log2 = (LogNames)new Random().Next(1, 5);
+            LogNames log3 = (LogNames)new Random().Next(1, 5);
+
+            var routeKey = $"{log1}.{log2}.{log3}";
+
+            string message = $"log {log1} - {log2} - {log3}"; 
 
             var messageBody = Encoding.UTF8.GetBytes(message); //rabbitmqya mesajlar byte dizin olarak gider.
 
@@ -60,9 +67,11 @@ class Program
 
             // channel.BasicPublish("log-fanout", " ", null, messageBody);
 
-            var routeKey = $"route-{log}"; //Direct Exchange
+            //var routeKey = $"route-{log}"; //Direct Exchange
 
-            channel.BasicPublish("logs-direct",routeKey, null, messageBody);
+            //channel.BasicPublish("logs-direct",routeKey, null, messageBody); Direct Exchange
+
+            channel.BasicPublish("logs-topic",routeKey, null, messageBody); //Topic Exchange
 
             Console.WriteLine($"Message has been sent : {message}");
         });
