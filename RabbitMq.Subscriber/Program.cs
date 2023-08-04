@@ -14,27 +14,50 @@ var channel = connection.CreateModel();
 //channel.QueueDeclare("hello-queue", true, false, false);
 //Publisherda bu kuyruğun olduğuna eminsen bu kodu silebilirsin,varsa da parametreler aynı olmalıdır.
 
-channel.BasicQos(0, 1, false);
+//channel.BasicQos(0, 1, false);
+
 // burada herhangi bir mesaj boyutu olarak ilk parametreyi girdik.
 // 2.parametre burada kaç mesaj olacağı. 
 // global parametresinin false değeri kaç subsscriber varsa hepsine 2.parametredeki mesaj gönder demektir.
 // 2.parametrede 6 var diyelim , true ise 3 subscriber varsa 2-2-2 gönder yani totalde 6 mesaj gönder demektir. Eşit bölmeye çalışır.
 
 
-var consumer = new EventingBasicConsumer(channel);
+//var consumer = new EventingBasicConsumer(channel);
 
 //channel.BasicConsume("hello-queue", true , consumer);
 
 //AutoAck: true denince RabbitMQ dan bir mesaj gönderildiğinde doğru da işlense yanlış da işlense kuyruktan silinir.
 // false denirse eğer doğru işlenirse kuyruktan sil, haberdar edeceğim anlamına gelir.
 
+//channel.BasicConsume("hello-queue", false , consumer); => aynı ayarla subscriber ve consumer tarafına yazarsak hata vermez.
 
-channel.BasicConsume("hello-queue", false , consumer);
+//channel.ExchangeDeclare("logs-fanout", durable: true, type: ExchangeType.Fanout);
+
+
+//var randomQueueName = channel.QueueDeclare().QueueName; Fanout Exchange
+//Burada her seferinde rastgele kuyruk oluşturur ve uygulama kapanınca kuyruk silinir
+
+//channel.QueueDeclare deseydi uygulama kapanınca da silinmezdi.
+
+//channel.QueueBind(randomQueueName, "logs-fanout", "", null); Fanout exchange
+
+
+channel.BasicQos(0, 1, false);
+var consumer = new EventingBasicConsumer(channel);
+
+//channel.BasicConsume(randomQueueName, false, consumer);Fanout exchange
+
+var queueName = "direct-queue-Critical"; // hangi kuyruğa bind olacağımızı belirttik
+channel.BasicConsume(queueName, false, consumer);
+
+Console.WriteLine("Loglar dinleniyor...");
 
 consumer.Received += (object? sender, BasicDeliverEventArgs e) =>
 {
     var message = Encoding.UTF8.GetString(e.Body.ToArray());
     Console.WriteLine("Gelen Mesaj : " + message);
+
+    File.AppendAllText("log-critical.txt",message+"\n");
 
     Thread.Sleep(1000);
 
