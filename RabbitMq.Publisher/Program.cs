@@ -1,6 +1,8 @@
 ﻿
 using RabbitMQ.Client;
+using Shared;
 using System.Text;
+using System.Text.Json;
 
 public enum LogNames
 {
@@ -9,7 +11,6 @@ public enum LogNames
     Warning=3,
     Information=4,
 }
-
 
 class Program
 {
@@ -47,8 +48,16 @@ class Program
 
         var properties = channel.CreateBasicProperties();
         properties.Headers = headers;
+        properties.Persistent = true;
+        //kuyruklarda durable true yapınca kuyruk silinmiyordu, bu kod mesajların da silinmemesini sağlar.
 
-        channel.BasicPublish("header-exchange", string.Empty, properties, Encoding.UTF8.GetBytes("Header Message"));
+        var product = new Product { Id = 1, Name = "Kalem", Price = 10, Stock = 100 }; 
+        var productJsonString= JsonSerializer.Serialize(product);
+
+        channel.BasicPublish("header-exchange", string.Empty, properties, Encoding.UTF8.GetBytes(productJsonString));
+        //Complex types
+
+        // channel.BasicPublish("header-exchange", string.Empty, properties, Encoding.UTF8.GetBytes("Header Message"));
 
         Console.WriteLine("Mesaj gönderildi");
 
@@ -65,7 +74,7 @@ class Program
         {
             //LogNames log = (LogNames)new Random().Next(1,5); => direct exchange  
 
-            LogNames log1 = (LogNames)new Random().Next(1, 5);
+            LogNames log1 = (LogNames)new Random().Next(1, 5); => topic exchange
             LogNames log2 = (LogNames)new Random().Next(1, 5);
             LogNames log3 = (LogNames)new Random().Next(1, 5);
 

@@ -1,7 +1,9 @@
 ﻿
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Shared;
 using System.Text;
+using System.Text.Json;
 
 var factory = new ConnectionFactory();
 
@@ -57,7 +59,7 @@ var queueName = channel.QueueDeclare().QueueName;
 
 Dictionary<string, object> headers = new Dictionary<string, object>();
 headers.Add("format", "pdf");
-headers.Add("x-match", "all"); //all dersek mutlaka key-value çiftleri eşleşmesi gerekir.
+headers.Add("x-match", "any"); //all dersek mutlaka key-value çiftleri eşleşmesi gerekir.
 //any der isek publisherdan herhangi bir ismin burada olması yeterli.
 //Örnek "format","pdf" ikisi de publisherdaki ile aynı olmak yerine "format2","pdf" de kabul edilir any için.
 
@@ -71,11 +73,15 @@ Console.WriteLine("Loglar dinleniyor...");
 consumer.Received += (object? sender, BasicDeliverEventArgs e) =>
 {
     var message = Encoding.UTF8.GetString(e.Body.ToArray());
-    Console.WriteLine("Gelen Mesaj : " + message);
+
+    Product product = JsonSerializer.Deserialize<Product>(message);  //Complex types 
 
     //File.AppendAllText("log-critical.txt",message+"\n"); logları txte yazdık.
 
     Thread.Sleep(1000);
+    //Console.WriteLine("Gelen Mesaj : " + message);
+
+    Console.WriteLine($"Gelen Mesaj : {product.Id} - {product.Name} - {product.Price} - {product.Stock}");
 
     channel.BasicAck(e.DeliveryTag, false); 
     //Bu kod ile ilgili mesajı silebileceğini rabbitmqya haber ederiz.
