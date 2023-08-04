@@ -50,12 +50,20 @@ var consumer = new EventingBasicConsumer(channel);
 //var queueName = "direct-queue-Critical"; // hangi kuyruğa bind olacağımızı belirttik // Direct Exchange
 
 var queueName = channel.QueueDeclare().QueueName;
-var routeKey = "*.Error.*"; //bu regex ifadeye uygun bir mesaj geldiğinde kuyruğa gelsin
+
+//var routeKey = "*.Error.*"; //bu regex ifadeye uygun bir mesaj geldiğinde kuyruğa gelsin => Topic Exchange
 
 //channel.QueueBind(queueName, "logs-direct", routeKey); //direct exchange
 
+Dictionary<string, object> headers = new Dictionary<string, object>();
+headers.Add("format", "pdf");
+headers.Add("x-match", "all"); //all dersek mutlaka key-value çiftleri eşleşmesi gerekir.
+//any der isek publisherdan herhangi bir ismin burada olması yeterli.
+//Örnek "format","pdf" ikisi de publisherdaki ile aynı olmak yerine "format2","pdf" de kabul edilir any için.
 
-channel.QueueBind(queueName, "logs-topic", routeKey);
+
+//channel.QueueBind(queueName, "logs-topic", routeKey); topic exchange
+channel.QueueBind(queueName, "header-exchange", string.Empty, headers);
 channel.BasicConsume(queueName, false, consumer);
 
 Console.WriteLine("Loglar dinleniyor...");

@@ -36,7 +36,21 @@ class Program
 
         //channel.ExchangeDeclare("logs-direct", durable: true, type: ExchangeType.Direct); //Direct Exchange tanımı
 
-        channel.ExchangeDeclare("logs-topic", durable: true, type: ExchangeType.Direct); //Direct Exchange tanımı
+       // channel.ExchangeDeclare("logs-topic", durable: true, type: ExchangeType.Direct); //Topic Exchange tanımı
+
+
+        channel.ExchangeDeclare("header-exchange", durable: true, type: ExchangeType.Headers); //Header Exchange tanımı
+
+        Dictionary<string,object> headers = new Dictionary<string, object>();
+        headers.Add("format", "pdf");
+        headers.Add("shape", "a4");
+
+        var properties = channel.CreateBasicProperties();
+        properties.Headers = headers;
+
+        channel.BasicPublish("header-exchange", string.Empty, properties, Encoding.UTF8.GetBytes("Header Message"));
+
+        Console.WriteLine("Mesaj gönderildi");
 
         //Direct Exchange
         /* Enum.GetNames(typeof(LogNames)).ToList().ForEach(x =>
@@ -47,7 +61,7 @@ class Program
          });*/
 
 
-        Enumerable.Range(1, 50).ToList().ForEach(x =>
+      /*  Enumerable.Range(1, 50).ToList().ForEach(x =>
         {
             //LogNames log = (LogNames)new Random().Next(1,5); => direct exchange  
 
@@ -79,6 +93,6 @@ class Program
         //Liste al ve 1 den 50 ye dön ve rabbitmqye gönder.
 
         Console.ReadLine();
-
+      */
     }
 }
