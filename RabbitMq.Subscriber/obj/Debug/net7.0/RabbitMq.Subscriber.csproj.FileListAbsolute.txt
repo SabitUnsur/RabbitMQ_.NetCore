@@ -15,3 +15,5 @@ C:\Users\sabit\source\repos\RabbitMQ-Ex\RabbitMq.Subscriber\obj\Debug\net7.0\ref
 C:\Users\sabit\source\repos\RabbitMQ-Ex\RabbitMq.Subscriber\obj\Debug\net7.0\RabbitMq.Subscriber.pdb
 C:\Users\sabit\source\repos\RabbitMQ-Ex\RabbitMq.Subscriber\obj\Debug\net7.0\RabbitMq.Subscriber.genruntimeconfig.cache
 C:\Users\sabit\source\repos\RabbitMQ-Ex\RabbitMq.Subscriber\obj\Debug\net7.0\ref\RabbitMq.Subscriber.dll
+C:\Users\sabit\source\repos\RabbitMQ-Ex\RabbitMq.Subscriber\bin\Debug\net7.0\Shared.dll
+C:\Users\sabit\source\repos\RabbitMQ-Ex\RabbitMq.Subscriber\bin\Debug\net7.0\Shared.pdb

@@ -17,7 +17,7 @@ class Program
     static void Main(string[] args)
     {
         var factory = new ConnectionFactory();
-        factory.Uri = new Uri("amqps://tegedsqq:ncxR4Qvi_wkErwDukEx0cFuvBEWJCiA_@moose.rmq.cloudamqp.com/tegedsqq");
+        factory.Uri = new Uri("amqps://fqmwwsui:Zw_5VI0UFBBoPPLecKJbiE-oENX1WTJu@chimpanzee.rmq.cloudamqp.com/fqmwwsu");
 
         //Url Bağlantısı
 

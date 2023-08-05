@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v7.0": {
       "RabbitMq.Subscriber/1.0.0": {
         "dependencies": {
-          "RabbitMQ.Client": "6.5.0"
+          "RabbitMQ.Client": "6.5.0",
+          "Shared": "1.0.0"
         },
         "runtime": {
           "RabbitMq.Subscriber.dll": {}
@@ -27,7 +28,12 @@
         }
       },
       "System.Memory/4.5.5": {},
-      "System.Threading.Channels/7.0.0": {}
+      "System.Threading.Channels/7.0.0": {},
+      "Shared/1.0.0": {
+        "runtime": {
+          "Shared.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -56,6 +62,11 @@
       "sha512": "sha512-qmeeYNROMsONF6ndEZcIQ+VxR4Q/TX/7uIVLJqtwIWL7dDWeh0l1UIqgo4wYyjG//5lUNhwkLDSFl+pAWO6oiA==",
       "path": "system.threading.channels/7.0.0",
       "hashPath": "system.threading.channels.7.0.0.nupkg.sha512"
+    },
+    "Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
