@@ -54,6 +54,7 @@ namespace RabbitMq.Web.ExcelReport.Controllers
             //Layoutta dinleriz, çünkü kullanıcı nerede gezinirse gezinsin bilgi gitmesi gerek
             //aksi taktirde başka bir sayfada iken bildirimi alamaz
             //Layoutta cdn olarak ekledik
+            //JavaScript ile bu koda subscribe olduk
 
             return Ok(userFile);
         }
