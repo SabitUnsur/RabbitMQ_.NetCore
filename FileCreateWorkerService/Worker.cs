@@ -47,6 +47,7 @@ namespace FileCreateWorkerService
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var consumer = new AsyncEventingBasicConsumer(_channel);
+            _channel.BasicConsume(RabbitMQClientService.QueueName, false,consumer);
             consumer.Received += Consumer_Received;
             return Task.CompletedTask;
 

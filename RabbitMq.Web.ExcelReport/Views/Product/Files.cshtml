@@ -23,10 +23,7 @@
             <td>@item.GetCreatedDate</td>
             <td>@item.FileStatus</td>
             <td>
-                <a href="~/files/@item.FilePath " class="btn btn-primary
-                    @(item.FileStatus == FileStatus.Creating ? "Disable" : "Enable")">
-                Download
-            </a></td>
+                <a href="~/files/@item.FilePath" class="btn btn-primary @(item.FileStatus==FileStatus.Creating ? "disabled": "")">Download</a>
         </tr>
     }
 
