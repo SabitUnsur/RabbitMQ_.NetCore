@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\RabbitMq.Web.ExcelReport.props" />
-</Project>

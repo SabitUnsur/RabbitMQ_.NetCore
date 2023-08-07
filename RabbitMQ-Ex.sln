@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMqWeb.WaterMark", "RabbitMqWeb.WaterMark\RabbitMqWeb.WaterMark.csproj", "{48969ADB-19BD-4DFB-908A-5A568EEAF992}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Web.ExcelReport", "RabbitMq.Web.ExcelReport\RabbitMq.Web.ExcelReport.csproj", "{46A01E75-2137-4332-9E54-01BE83B5B3EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMq.Web.ExcelReport", "RabbitMq.Web.ExcelReport\RabbitMq.Web.ExcelReport.csproj", "{46A01E75-2137-4332-9E54-01BE83B5B3EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileCreateWorkerService", "FileCreateWorkerService\FileCreateWorkerService.csproj", "{8C63166D-1E7A-461B-8AE7-D89910F94E17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{46A01E75-2137-4332-9E54-01BE83B5B3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46A01E75-2137-4332-9E54-01BE83B5B3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46A01E75-2137-4332-9E54-01BE83B5B3EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C63166D-1E7A-461B-8AE7-D89910F94E17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C63166D-1E7A-461B-8AE7-D89910F94E17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C63166D-1E7A-461B-8AE7-D89910F94E17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C63166D-1E7A-461B-8AE7-D89910F94E17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,5 @@
+C:\Users\sabit\source\repos\RabbitMQ-Ex\Shared\obj\Debug\net5.0\Shared.csproj.AssemblyReference.cache
+C:\Users\sabit\source\repos\RabbitMQ-Ex\Shared\obj\Debug\net5.0\Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sabit\source\repos\RabbitMQ-Ex\Shared\obj\Debug\net5.0\Shared.AssemblyInfoInputs.cache
+C:\Users\sabit\source\repos\RabbitMQ-Ex\Shared\obj\Debug\net5.0\Shared.AssemblyInfo.cs
+C:\Users\sabit\source\repos\RabbitMQ-Ex\Shared\obj\Debug\net5.0\Shared.csproj.CoreCompileInputs.cache

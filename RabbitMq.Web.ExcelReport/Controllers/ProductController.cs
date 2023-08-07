@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RabbitMq.Web.ExcelReport.Models;
 using RabbitMq.Web.ExcelReport.Services;
+using Shared;
 
 namespace RabbitMq.Web.ExcelReport.Controllers
 {
@@ -43,10 +44,10 @@ namespace RabbitMq.Web.ExcelReport.Controllers
             _appDbContext.UserFiles.Add(userFile);
             _appDbContext.SaveChanges();
 
-            _rabbitMQPublisher.Publish(new Shared.CreateExcelMessage()
+            _rabbitMQPublisher.Publish(new CreateExcelMessage()
             {
                 FileId = userFile.Id,
-                UserId = user.Id
+               // UserId = user.Id
             });
 
             //rabbitmq mesaj gönder

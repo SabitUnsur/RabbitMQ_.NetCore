@@ -8,7 +8,9 @@ namespace Shared
 {
     public class CreateExcelMessage
     {
-        public string UserId { get; set; }
+       // public string UserId { get; set; }
+
+       //FilesControllerda bunu zaten bize userId geliyor dolayısıyla almadık
         public int FileId { get; set; }
         
     }
