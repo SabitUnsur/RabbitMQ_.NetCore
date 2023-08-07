@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using RabbitMq.Web.ExcelReport.Hubs;
 using RabbitMq.Web.ExcelReport.Models;
 
 namespace RabbitMq.Web.ExcelReport.Controllers
@@ -13,10 +15,12 @@ namespace RabbitMq.Web.ExcelReport.Controllers
     public class FilesController : ControllerBase
     {
         private readonly AppDbContext _appDbContext;
+        private readonly IHubContext<MyHub> _hubContext;
 
-        public FilesController(AppDbContext appDbContext)
+        public FilesController(AppDbContext appDbContext, IHubContext<MyHub> hubContext)
         {
             _appDbContext = appDbContext;
+            _hubContext = hubContext;
         }
 
         [HttpPost]
@@ -46,6 +50,10 @@ namespace RabbitMq.Web.ExcelReport.Controllers
             await _appDbContext.SaveChangesAsync();
 
             //SignalR notifications
+            await _hubContext.Clients.User(userFile.UserId).SendAsync("CompletedFile");
+            //Layoutta dinleriz, çünkü kullanıcı nerede gezinirse gezinsin bilgi gitmesi gerek
+            //aksi taktirde başka bir sayfada iken bildirimi alamaz
+            //Layoutta cdn olarak ekledik
 
             return Ok(userFile);
         }

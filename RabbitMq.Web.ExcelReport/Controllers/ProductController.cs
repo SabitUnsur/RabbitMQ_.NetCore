@@ -54,6 +54,7 @@ namespace RabbitMq.Web.ExcelReport.Controllers
 
             TempData["StartCreatingExcel"] = true;
             //Bir requestten diğerine data taşırken tempdata kullanıllır.
+            //Files.cshtml içinde karşılandı
 
 
             return RedirectToAction(nameof(Files));

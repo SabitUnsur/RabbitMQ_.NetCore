@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using RabbitMq.Web.ExcelReport.Hubs;
 using RabbitMq.Web.ExcelReport.Models;
 using RabbitMq.Web.ExcelReport.Services;
 using RabbitMQ.Client;
@@ -13,8 +14,9 @@ builder.Services.AddEntityFrameworkNpgsql()
   .BuildServiceProvider();
 
 builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddSignalR();
 
-// UserManager baðýmlýlýðýný ekleyin
+
 builder.Services.AddScoped<UserManager<IdentityUser>>();
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
@@ -31,6 +33,7 @@ builder.Services.AddSingleton(sp => new ConnectionFactory()
 
 builder.Services.AddSingleton<RabbitMQClientService>();
 builder.Services.AddSingleton<RabbitMQPublisher>();
+
 
 var app = builder.Build();
 
@@ -53,5 +56,12 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<MyHub>("/MyHub"); // Add SignalR hub mapping
+    endpoints.MapControllers();
+});
+
 
 app.Run();
